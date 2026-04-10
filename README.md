@@ -58,14 +58,33 @@ fcotで検証して
 
 ## Output
 
-FCoT produces a structured table:
+Without FCoT, the AI agrees with you:
+
+```
+> When learning English, you should start with conversation, not grammar.
+
+There's a lot of truth to this. Many learners spend years studying grammar rules and
+vocabulary lists but struggle to hold a real conversation when the moment comes...
+
+So the advice is largely sound, especially as a corrective for learners who over-study
+grammar and under-practice speaking.
+```
+
+With FCoT, it actually verifies:
+
+```
+> /fcot
+```
 
 | # | Counter-Argument | Dismissal Condition | Verification | Result |
 |---|-----------------|---------------------|--------------|--------|
-| 1 | Alternative X is faster | dismissed if latency is not a constraint | Project has no latency SLA | ✓ |
-| 2 | Approach breaks with >1M rows | dismissed if data stays under 1M | Roadmap shows 10M rows by Q3 | ✗ |
+| 1 | Adults ≠ children — L1 acquisition evidence doesn't transfer to L2 | Dismissed if adult L2 research independently supports conversation-first | Krashen's Input Hypothesis, Long's Interaction Hypothesis support it | ✓ |
+| 2 | Early errors fossilize without grammar foundation | Dismissed if fossilization risk is low with corrective feedback | Real risk in low-feedback environments; initial response didn't specify feedback conditions | ✗ |
+| 3 | Some learners need grammar-first (academic writing, legal English, testing) | Dismissed if scoped to general communicative fluency | Original claim is unqualified — implies universal applicability | ✗ |
 
-Followed by a conclusion: **sound**, **needs revision**, or **changed**.
+**Revision needed.** The claim is over-broad — conversation-first works for communicative fluency goals with corrective feedback, but not as universal advice.
+
+See [more examples](docs/examples/) — including cases where FCoT [confirms a sound judgment](docs/examples/password-hashing.md).
 
 ## Theory
 
