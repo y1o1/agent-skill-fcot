@@ -73,6 +73,23 @@ Three patterns emerged:
 
 Full before/after comparisons, evaluation table, and methodology limitations are in [docs/examples/](docs/examples/).
 
+### Context separation effect
+
+Running Control and FCoT in the same context (single session or subagent) vs. fully separate CLI processes produced materially different results for the same subject ("Code reviews are valuable and every team should do them"):
+
+| | Same context | Separate process |
+|---|---|---|
+| FCoT counter-arguments surviving | 1/4 | 4/5 |
+| FCoT conclusion | Narrow revision (strengthens Control) | Revision (overturns Control's pushback) |
+
+In the same-context condition, FCoT found a gap that *added to* the Control response. In the separate-process condition, FCoT found that the Control's pushback was largely cosmetically contrarian — "misattributed a culture problem to the practice" — and reversed direction toward the original claim.
+
+The likely mechanism: **consistency bias.** When FCoT runs in the same context as the Control response, the model has an implicit incentive to maintain coherence with its prior output. Separate processes eliminate this, allowing FCoT to evaluate the Control response as an external artifact rather than its own prior commitment.
+
+This is a second form of context contamination (the first being system prompt bias discovered in the initial sampling round). Both point to the same conclusion: **FCoT's effectiveness depends on context isolation between the judgment and its verification.**
+
+N=1 for this comparison. Whether the effect is consistent across subjects and models is untested.
+
 ## Open questions
 
 [Large Language Models Cannot Self-Correct Reasoning Yet](https://arxiv.org/abs/2310.01798) (Huang et al., 2023) demonstrates that intrinsic self-correction without external feedback tends to degrade performance. The qualitative observations above suggest that FCoT's pre-commitment mechanism produces a different dynamic — the dismissal conditions function as self-imposed evaluation criteria rather than open-ended self-doubt — but rigorous validation remains open.
