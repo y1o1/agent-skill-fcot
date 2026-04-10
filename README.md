@@ -70,11 +70,7 @@ So the advice is largely sound, especially as a corrective for learners who over
 grammar and under-practice speaking.
 ```
 
-With FCoT, it actually verifies:
-
-```
-> /fcot
-```
+Then run `/fcot`:
 
 | # | Counter-Argument | Dismissal Condition | Verification | Result |
 |---|-----------------|---------------------|--------------|--------|
