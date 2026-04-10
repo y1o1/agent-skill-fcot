@@ -1,0 +1,16 @@
+{
+  "name": "fcot",
+  "description": "Falsification Chain of Thought — post-hoc verification of AI judgments using falsificationism to counter sycophancy bias",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yoshi Aoki"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "sycophancy",
+    "falsification",
+    "reasoning",
+    "verification"
+  ]
+}
