@@ -37,6 +37,47 @@ Existing work either:
 
 FCoT's contribution is narrow but real: the FN bias mechanism applied as per-argument commitment gates, creating an auditable chain that prevents post-hoc rationalization.
 
+## Observed effects
+
+We ran FCoT on 6 judgment statements (3 technical, 2 general, 1 well-established principle) and compared the results against the same model's unstructured response. The full before/after comparisons are in [docs/examples/](docs/examples/). Three patterns emerged:
+
+### Pattern 1: Judgment revised (4/6 cases)
+
+In [grammar-vs-conversation](docs/examples/grammar-vs-conversation.md), [jwt-vs-session](docs/examples/jwt-vs-session.md), [monorepo](docs/examples/monorepo.md), and [password-hashing](docs/examples/password-hashing.md), the initial response was directionally reasonable but missed conditions that FCoT's counter-argument enumeration surfaced:
+
+- The grammar-vs-conversation response called conversation-first "largely sound" without noting that it depends on corrective feedback and doesn't apply to academic/legal/test-prep goals.
+- The JWT response overstated CSRF as a counterweight to session auth's revocation advantage — a flaw that the dismissal-condition verification caught.
+- The monorepo response framed the decision around current pain, when the better diagnostic is coupling trajectory — a distinction that only emerged through structured falsification.
+- The password-hashing response was correct but unscoped — FCoT found that legacy challenge-response protocols (CHAP, NTLM) are architecturally incompatible with one-way hashing.
+
+In each case, the pre-declared dismissal condition forced a concrete check rather than allowing the model to wave away the counter-argument with "it depends." This is the core mechanism Huang et al. (2023) identified as missing from intrinsic self-correction: the dismissal conditions act as self-imposed evaluation criteria that constrain the model's ability to rationalize its way back to the original conclusion.
+
+### Pattern 2: Judgment changed (1/6 cases)
+
+In [remote-work](docs/examples/remote-work.md), all 5 counter-arguments survived falsification. The initial response hedged with "nuanced, depends on context," but FCoT revealed that every leg of the hedge was individually weak — the most-cited study doesn't generalize, self-report data has systematic bias, hybrid models outperform both extremes.
+
+Without pre-commitment, the model would have stopped at a balanced-sounding answer. The dismissal conditions made it impossible to wave each argument away independently, forcing the model to confront the cumulative weight of evidence against its position.
+
+### Pattern 3: Judgment confirmed (1/6 cases)
+
+In [typescript-any](docs/examples/typescript-any.md), all 5 counter-arguments were dismissed. The initial position — "`never` is too strong, use `any` deliberately" — survived falsification intact.
+
+This matters because it shows FCoT is not a contrarianism tool. When a judgment is sound, the process confirms it quickly. It also demonstrated a secondary benefit: even when the judgment held, FCoT identified a precision gap (variable-typed `any` vs. targeted `as any` casts have different propagation behavior) that improved the quality of the advice without changing its direction.
+
+### Methodology and limitations
+
+- **N=6, qualitative, single model** (Claude Sonnet 4.6). No statistical testing, no reproducibility verification.
+- **Sampling bias.** Judgment statements were chosen for demonstrative value, not randomly sampled.
+- **Context contamination.** The initial sampling round inherited anti-sycophancy instructions from the session's configuration, producing atypically pushback-heavy control responses. A second round in a clean session produced more representative results. This itself is a finding: system prompts that encourage critical thinking are not equivalent to structured falsification.
+- **No cross-model comparison.** All samples used the same model. Whether FCoT's effects hold across different model families is untested.
+
 ## Open questions
 
-[Large Language Models Cannot Self-Correct Reasoning Yet](https://arxiv.org/abs/2310.01798) (Huang et al., 2023) demonstrates that intrinsic self-correction without external feedback tends to degrade performance. FCoT's structured pre-commitment is designed to mitigate this — the pre-declared dismissal conditions act as a form of self-imposed external constraint — but empirical validation of its effectiveness remains an open question.
+[Large Language Models Cannot Self-Correct Reasoning Yet](https://arxiv.org/abs/2310.01798) (Huang et al., 2023) demonstrates that intrinsic self-correction without external feedback tends to degrade performance. The qualitative observations above suggest that FCoT's pre-commitment mechanism produces a different dynamic — the dismissal conditions function as self-imposed evaluation criteria rather than open-ended self-doubt — but rigorous validation remains open.
+
+Specific questions:
+
+- **Statistical significance.** Do the observed patterns hold at scale (N > 100)?
+- **Cross-model generalization.** Does the FN bias mechanism work similarly across model families (GPT, Gemini, open-weight models)?
+- **Effect by judgment type.** Is FCoT more effective for certain categories of judgment (empirical claims, architectural decisions, value judgments)?
+- **Degradation risk.** Under what conditions does FCoT's self-critique degrade rather than improve judgment quality — and does the pre-commitment mechanism reliably prevent this?
