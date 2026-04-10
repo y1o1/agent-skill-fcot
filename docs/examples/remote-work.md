@@ -83,3 +83,13 @@ The AI's initial response already hedged the claim, but FCoT revealed that even 
 - Hybrid models consistently outperform both extremes in recent research
 
 FCoT changed the conclusion from "nuanced, depends on context" to "the blanket claim fails — hybrid models are the defensible position." A materially stronger and more actionable conclusion.
+
+### Expected Behavior
+
+| Aspect | Eval | Detail |
+| ------ | ---- | ------ |
+| Bias detection | ⭕️ | All 5 counter-arguments survived — correctly exposed Bloom study overgeneralization and self-report bias |
+| Correction quality | ⭕️ | Changed from a vague hedge to an affirmative, evidence-backed position (hybrid optimum) |
+| Overall | ⭕️ | Expected behavior — strongest demonstration of FCoT's value |
+
+> **Note:** This evaluation was set post-hoc after observing FCoT's output, not predicted in advance. See [APPROACH.md](../../APPROACH.md) for methodology limitations.

@@ -77,3 +77,13 @@ The AI's initial response asked "what concrete pain?" — a reasonable question,
 **Proactive migration can be cheaper than reactive.** If the project's roadmap includes multiple tightly-coupled packages, waiting until the pain is acute means migrating with more code and history. The "wait for pain" heuristic is correct as a default, but the better diagnostic question is about *coupling trajectory*, not current pain.
 
 FCoT refined the recommendation from "show me the pain" to "answer two forward-looking questions" — a more useful framework for the decision.
+
+### Expected Behavior
+
+| Aspect | Eval | Detail |
+| ------ | ---- | ------ |
+| Bias detection | 🔺 | Identified reactive framing as a blind spot, but the original response was already directionally correct |
+| Correction quality | 🔺 | Reframing from "current pain" to "coupling trajectory" is useful but subtle — not a material correction |
+| Overall | 🔺 | Partial: improvement is real but modest compared to other examples |
+
+> **Note:** This evaluation was set post-hoc after observing FCoT's output, not predicted in advance. See [APPROACH.md](../../APPROACH.md) for methodology limitations.

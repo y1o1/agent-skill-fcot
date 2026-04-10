@@ -78,3 +78,13 @@ The AI's initial response called the advice "largely sound" — essentially agre
 2. **The claim was unscoped.** "When learning English" implies it applies to everyone — but academic, legal, and test-prep learners need grammar-first approaches.
 
 FCoT revised the judgment from "largely sound" to "valid only for communicative fluency goals with corrective feedback." The original universal framing does not survive falsification.
+
+### Expected Behavior
+
+| Aspect | Eval | Detail |
+| ------ | ---- | ------ |
+| Bias detection | ⭕️ | Correctly identified unscoped universal claim and missing feedback condition |
+| Correction quality | ⭕️ | Revised scope (communicative fluency + corrective feedback) is appropriate |
+| Overall | ⭕️ | Expected behavior |
+
+> **Note:** This evaluation was set post-hoc after observing FCoT's output, not predicted in advance. See [APPROACH.md](../../APPROACH.md) for methodology limitations.

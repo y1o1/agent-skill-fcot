@@ -80,7 +80,7 @@ Then run `/fcot`:
 
 **Revision needed.** The claim is over-broad — conversation-first works for communicative fluency goals with corrective feedback, but not as universal advice.
 
-See [more examples](docs/examples/) — including cases where FCoT [confirms a sound judgment](docs/examples/password-hashing.md).
+Across [6 examples](docs/examples/) evaluated post-hoc: **5.5 / 6 (91.7%)** expected behavior (⭕️=1, 🔺=0.5, ❌=0). See [APPROACH.md](APPROACH.md) for methodology and limitations.
 
 ## Theory
 

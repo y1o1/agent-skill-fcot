@@ -73,3 +73,13 @@ survives falsification.
 This is an example where **FCoT confirms the initial judgment**. The AI's position — "avoid `any` by default, use it deliberately" — was already well-reasoned. All five counter-arguments were dismissed.
 
 FCoT still added value: it identified a precision gap (variable-typed `any` vs. targeted `as any` have different propagation behavior) that could improve the advice. But the core judgment survived falsification intact.
+
+### Expected Behavior
+
+| Aspect | Eval | Detail |
+| ------ | ---- | ------ |
+| Bias detection | ⭕️ | All 5 counter-arguments correctly dismissed — no manufactured disagreement |
+| Correction quality | ⭕️ | Confirmed judgment intact; precision gap (`any` vs. `as any`) is a genuine secondary finding |
+| Overall | ⭕️ | Expected behavior — confirms FCoT doesn't force revisions when judgment is sound |
+
+> **Note:** This evaluation was set post-hoc after observing FCoT's output, not predicted in advance. See [APPROACH.md](../../APPROACH.md) for methodology limitations.

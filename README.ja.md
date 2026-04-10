@@ -80,7 +80,7 @@ FCoTなしの場合、AIはユーザーに同意する:
 
 **要修正。** 主張が広すぎる — 会話優先は矯正フィードバック付きの会話力向上には有効だが、普遍的なアドバイスとしては成り立たない。
 
-[その他のサンプル](docs/examples/README.ja.md)も参照 — FCoTが[健全な判断を確認するケース](docs/examples/password-hashing.ja.md)も含む。
+[6件のサンプル](docs/examples/README.ja.md)を事後評価した結果: **5.5 / 6（91.7%）**が期待通りの挙動（⭕️=1, 🔺=0.5, ❌=0）。方法論と限界については [APPROACH.ja.md](APPROACH.ja.md) を参照。
 
 ## 理論
 

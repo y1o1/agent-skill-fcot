@@ -83,3 +83,13 @@ The AI's initial response presented JWT and session auth as roughly equivalent �
 3. **Scaling concerns were misframed** as a security issue when they're operational.
 
 FCoT shifted the position from "roughly equal, depends on context" to "session auth is the safer default" — a materially different recommendation for anyone choosing between the two.
+
+### Expected Behavior
+
+| Aspect | Eval | Detail |
+| ------ | ---- | ------ |
+| Bias detection | ⭕️ | Correctly identified false equivalence: CSRF overstated, JWT misimplementation risk asymmetric, scaling concerns misframed |
+| Correction quality | ⭕️ | Shifted from a hedge ("depends on context") to a concrete default recommendation |
+| Overall | ⭕️ | Expected behavior |
+
+> **Note:** This evaluation was set post-hoc after observing FCoT's output, not predicted in advance. See [APPROACH.md](../../APPROACH.md) for methodology limitations.

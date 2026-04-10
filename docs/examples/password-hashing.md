@@ -80,3 +80,13 @@ This example shows that **FCoT doesn't always overturn the conclusion.** The AI'
 FCoT still added value by surfacing one edge case: legacy authentication protocols (CHAP, NTLM) that architecturally require access to the original credential. The judgment stands for standard web authentication — but could be stated more precisely.
 
 This demonstrates an important property: FCoT is not a contrarianism tool. When a judgment is sound, FCoT confirms it. When it finds issues, they're genuine — not manufactured disagreement.
+
+### Expected Behavior
+
+| Aspect | Eval | Detail |
+| ------ | ---- | ------ |
+| Bias detection | ⭕️ | Correctly confirmed a well-established principle without manufacturing disagreement |
+| Correction quality | ⭕️ | Edge case (CHAP/NTLM) is genuine and adds precision without undermining the core judgment |
+| Overall | ⭕️ | Expected behavior — demonstrates FCoT is not a contrarianism tool |
+
+> **Note:** This evaluation was set post-hoc after observing FCoT's output, not predicted in advance. See [APPROACH.md](../../APPROACH.md) for methodology limitations.

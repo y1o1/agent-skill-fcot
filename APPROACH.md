@@ -39,35 +39,36 @@ FCoT's contribution is narrow but real: the FN bias mechanism applied as per-arg
 
 ## Observed effects
 
-We ran FCoT on 6 judgment statements (3 technical, 2 general, 1 well-established principle) and compared the results against the same model's unstructured response. The full before/after comparisons are in [docs/examples/](docs/examples/). Three patterns emerged:
+We ran FCoT on 6 judgment statements (3 technical, 2 general, 1 well-established principle) and compared the results against the same model's unstructured response. Each result was then evaluated post-hoc for whether FCoT produced the expected behavior. The full before/after comparisons with per-example evaluations are in [docs/examples/](docs/examples/).
 
-### Pattern 1: Judgment revised (4/6 cases)
+### Evaluation summary
 
-In [grammar-vs-conversation](docs/examples/grammar-vs-conversation.md), [jwt-vs-session](docs/examples/jwt-vs-session.md), [monorepo](docs/examples/monorepo.md), and [password-hashing](docs/examples/password-hashing.md), the initial response was directionally reasonable but missed conditions that FCoT's counter-argument enumeration surfaced:
+| Example | FCoT Result | Expected | Eval | Rationale |
+| ------- | ----------- | -------- | ---- | --------- |
+| [grammar-vs-conversation](docs/examples/grammar-vs-conversation.md) | Revised | Should revise | ⭕️ | Correctly detected unscoped claim and missing feedback condition |
+| [jwt-vs-session](docs/examples/jwt-vs-session.md) | Revised | Should revise | ⭕️ | Correctly dismantled false equivalence (CSRF, misimplementation asymmetry) |
+| [monorepo](docs/examples/monorepo.md) | Revised | Should revise | 🔺 | Useful reframing but modest — original was directionally correct |
+| [password-hashing](docs/examples/password-hashing.md) | Narrow revision | Should confirm | ⭕️ | Correctly confirmed; edge case (CHAP/NTLM) adds precision |
+| [remote-work](docs/examples/remote-work.md) | Changed | Should change | ⭕️ | All 5 counter-arguments survived; correctly exposed weak evidence base |
+| [typescript-any](docs/examples/typescript-any.md) | Confirmed | Should confirm | ⭕️ | All 5 counter-arguments dismissed; no manufactured disagreement |
 
-- The grammar-vs-conversation response called conversation-first "largely sound" without noting that it depends on corrective feedback and doesn't apply to academic/legal/test-prep goals.
-- The JWT response overstated CSRF as a counterweight to session auth's revocation advantage — a flaw that the dismissal-condition verification caught.
-- The monorepo response framed the decision around current pain, when the better diagnostic is coupling trajectory — a distinction that only emerged through structured falsification.
-- The password-hashing response was correct but unscoped — FCoT found that legacy challenge-response protocols (CHAP, NTLM) are architecturally incompatible with one-way hashing.
+**Achievement score: 5.5 / 6 (91.7%)** — scoring ⭕️ = 1, 🔺 = 0.5, ❌ = 0.
 
-In each case, the pre-declared dismissal condition forced a concrete check rather than allowing the model to wave away the counter-argument with "it depends." This is the core mechanism Huang et al. (2023) identified as missing from intrinsic self-correction: the dismissal conditions act as self-imposed evaluation criteria that constrain the model's ability to rationalize its way back to the original conclusion.
+### Pattern analysis
 
-### Pattern 2: Judgment changed (1/6 cases)
+Three patterns emerged across the examples:
 
-In [remote-work](docs/examples/remote-work.md), all 5 counter-arguments survived falsification. The initial response hedged with "nuanced, depends on context," but FCoT revealed that every leg of the hedge was individually weak — the most-cited study doesn't generalize, self-report data has systematic bias, hybrid models outperform both extremes.
+**Pattern 1: Judgment revised (4/6 cases).** In grammar-vs-conversation, jwt-vs-session, monorepo, and password-hashing, the initial response was directionally reasonable but missed conditions that FCoT's counter-argument enumeration surfaced. In each case, the pre-declared dismissal condition forced a concrete check rather than allowing the model to wave away the counter-argument with "it depends." This is the core mechanism Huang et al. (2023) identified as missing from intrinsic self-correction.
 
-Without pre-commitment, the model would have stopped at a balanced-sounding answer. The dismissal conditions made it impossible to wave each argument away independently, forcing the model to confront the cumulative weight of evidence against its position.
+**Pattern 2: Judgment changed (1/6 cases).** In remote-work, all 5 counter-arguments survived falsification. The dismissal conditions made it impossible to wave each argument away independently, forcing the model to confront the cumulative weight of evidence against its position.
 
-### Pattern 3: Judgment confirmed (1/6 cases)
-
-In [typescript-any](docs/examples/typescript-any.md), all 5 counter-arguments were dismissed. The initial position — "`never` is too strong, use `any` deliberately" — survived falsification intact.
-
-This matters because it shows FCoT is not a contrarianism tool. When a judgment is sound, the process confirms it quickly. It also demonstrated a secondary benefit: even when the judgment held, FCoT identified a precision gap (variable-typed `any` vs. targeted `as any` casts have different propagation behavior) that improved the quality of the advice without changing its direction.
+**Pattern 3: Judgment confirmed (1/6 cases).** In typescript-any, all 5 counter-arguments were dismissed. This shows FCoT is not a contrarianism tool — when a judgment is sound, the process confirms it quickly.
 
 ### Methodology and limitations
 
 - **N=6, qualitative, single model** (Claude Sonnet 4.6). No statistical testing, no reproducibility verification.
 - **Sampling bias.** Judgment statements were chosen for demonstrative value, not randomly sampled.
+- **Post-hoc evaluation.** The "expected" results in the evaluation table were set after observing FCoT's output, not predicted in advance. The examples demonstrate process behavior, not measured efficacy.
 - **Context contamination.** The initial sampling round inherited anti-sycophancy instructions from the session's configuration, producing atypically pushback-heavy control responses. A second round in a clean session produced more representative results. This itself is a finding: system prompts that encourage critical thinking are not equivalent to structured falsification.
 - **No cross-model comparison.** All samples used the same model. Whether FCoT's effects hold across different model families is untested.
 
