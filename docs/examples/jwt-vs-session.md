@@ -35,17 +35,37 @@ reduces the blast radius of a compromised credential. But calling it categorical
 infrastructure, and implementation discipline.
 ```
 
-The AI pushes back on the "more secure" framing and presents it as a balanced tradeoff. It overstates CSRF as a counterweight and frames "implementation quality" as an equalizer — a position that FCoT later challenges.
-
 ## With FCoT
 
 ```
 > /fcot
-```
 
 ## FCoT: Session-based auth is not categorically more secure than JWT — security depends on context, threat model, and implementation.
 
 ### Counter-Arguments
+
+| # | Counter-Argument | Dismissal Condition | Verification | Result |
+|---|-----------------|---------------------|--------------|--------|
+| 1 | Revocation advantage is real and decisive for high-security contexts. | Dismissed if JWT can match revocation without adding state. | JWTs cannot match immediate revocation without a blocklist. Gap is structural. | ✓ |
+| 2 | CSRF is largely solved with modern SameSite cookies. | Dismissed if CSRF is genuinely mitigated by default. | SameSite attributes largely neutralize CSRF. Overstated as counterweight. | ✗ |
+| 3 | JWT misimplementation is systematically more common and dangerous. | Dismissed if not systematically more common. | OWASP cites JWT-specific vulns as prevalent. More moving parts to misconfigure. | ✗ |
+| 4 | Scaling concerns for sessions are overstated. | Dismissed if scaling doesn't add real security complexity. | Redis/sticky sessions are mature. Risk is operational, not fundamental. | ✗ |
+
+### Conclusion
+
+**Revision needed.**
+
+Three counter-arguments stand. CSRF was overstated, JWT misimplementation risk was
+underweighted, and scaling complexity is operational not security-related.
+
+**Revised position:** Session auth is the safer default; JWT is justified when
+stateless distribution is architecturally required and the team can implement it
+correctly.
+```
+
+### Analysis
+
+#### Counter-Arguments
 
 | # | Counter-Argument | Dismissal Condition | Verification | Result |
 |---|-----------------|---------------------|--------------|--------|
@@ -54,14 +74,12 @@ The AI pushes back on the "more secure" framing and presents it as a balanced tr
 | 3 | "Implementation quality equalizes the two" overgeneralizes. JWT misimplementation (weak secrets, long expiry, no rotation) is systematically more common and dangerous than equivalent session auth misimplementation. | Dismissed if JWT misimplementation is not systematically more common or dangerous. | JWT's flexibility (algorithm choice, expiry settings, claim validation) creates more attack surface for developer error. OWASP consistently cites JWT-specific misimplementation as a prevalent vulnerability category. Session auth has fewer moving parts to misconfigure. | ✗ |
 | 4 | Distributed/scaling concerns for session auth are overstated — sticky sessions and Redis-backed session stores are mature, standard solutions. | Dismissed if scaling session auth does not introduce security complexity beyond what standard tooling addresses. | Sticky sessions and centralized session stores are mature and widely used. The security risk is largely operational rather than fundamental. The initial response implied more security risk than is accurate. | ✗ |
 
-### Conclusion
+#### Summary
 
-**Revision needed.**
+The AI's initial response presented JWT and session auth as roughly equivalent — "the security delta comes down to implementation quality." FCoT found three flaws in this framing:
 
-The initial response was directionally correct — "session-based auth is more secure" is an oversimplification — but three counter-arguments stand:
+1. **CSRF was overstated** as a session-auth weakness. Modern SameSite cookies largely solve it — it's not a fair counterweight to JWT's revocation gap.
+2. **JWT misimplementation risk is asymmetric.** JWT has more moving parts (algorithm choice, expiry, claim validation) and is empirically harder to implement safely.
+3. **Scaling concerns were misframed** as a security issue when they're operational.
 
-1. **CSRF** is largely a solved problem and should not have been presented as a structural counterweight.
-2. **JWT misimplementation risk** is systematically higher — "implementation quality equalizes them" was too generous to JWT.
-3. **Scaling complexity** is an operational concern, not a meaningful security flaw.
-
-**Revised position:** Session-based auth has a genuine structural advantage in credential revocation, and JWT's flexibility creates more attack surface for developer error. For most use cases, *session auth is the safer default; JWT is justified when stateless distribution is architecturally required and the team can implement it correctly.*
+FCoT shifted the position from "roughly equal, depends on context" to "session auth is the safer default" — a materially different recommendation for anyone choosing between the two.

@@ -29,17 +29,38 @@ entirely." A balanced approach leans heavily toward conversation while using gra
 a support structure, not the foundation.
 ```
 
-The AI largely agrees. It calls the advice "largely sound" and validates the conversation-first framing. While it mentions grammar as a "support structure," the overall response affirms the user's position.
-
 ## With FCoT
 
 ```
 > /fcot
-```
 
 ## FCoT: Learners should prioritize conversation over grammar study when learning English.
 
 ### Counter-Arguments
+
+| # | Counter-Argument | Dismissal Condition | Verification | Result |
+|---|-----------------|---------------------|--------------|--------|
+| 1 | Adults are not children — child acquisition evidence doesn't transfer cleanly. | Dismissed if adult L2 research independently supports conversation-first. | Krashen's Input Hypothesis, Long's Interaction Hypothesis support it independently. | ✓ |
+| 2 | Early errors fossilize without grammar foundation. | Dismissed if fossilization risk is low with corrective feedback. | Real risk in low-feedback environments; initial response didn't specify feedback conditions. | ✗ |
+| 3 | Some learners need grammar-first (academic writing, legal English, testing). | Dismissed if scoped to general communicative fluency. | Original claim is unqualified — implies universal applicability. | ✗ |
+| 4 | Conversation-first is inaccessible for isolated learners. | Dismissed if accessible without human partners (AI tools, apps). | AI tools help, but not universally available. Partial validity. | ✗ |
+| 5 | The dichotomy is false — grammar and conversation are not mutually exclusive. | Dismissed if the response acknowledged integration. | Response did include "balanced approach" — partially addressed. | ✓ |
+
+### Conclusion
+
+**Revision needed.**
+
+Two counter-arguments stand clearly:
+1. Error fossilization without feedback (#2)
+2. Goal dependency (#3)
+
+**Revised judgment:** For communicative fluency goals with corrective feedback,
+conversation-first is strongly supported. But the original claim is over-broad.
+```
+
+### Analysis
+
+#### Counter-Arguments
 
 | # | Counter-Argument | Dismissal Condition | Verification | Result |
 |---|-----------------|---------------------|--------------|--------|
@@ -49,13 +70,11 @@ The AI largely agrees. It calls the advice "largely sound" and validates the con
 | 4 | Conversation-first can be inaccessible for isolated learners without access to native speakers or immersion environments. | Dismissed if conversation-first methods are accessible without human partners (AI tools, apps). | AI tools now make conversational practice widely accessible, but this is recent and not universally available. Partial validity remains. | ✗ |
 | 5 | The dichotomy itself is false — grammar and conversation are not mutually exclusive. Integrated approaches (noticing grammar through conversation) are well-supported. | Dismissed if the initial response acknowledged integration rather than a hard binary. | The response did include "a balanced approach leans heavily toward conversation while using grammar as a support structure." Partially addressed, though the headline framing still presents a binary. | ✓ |
 
-### Conclusion
+#### Summary
 
-**Revision needed.**
+The AI's initial response called the advice "largely sound" — essentially agreeing with the user. FCoT exposed two concrete problems:
 
-Two counter-arguments stand clearly:
+1. **Fossilization risk was unaddressed.** Without corrective feedback, conversation-first can bake in errors that become permanent. The initial response didn't mention this condition.
+2. **The claim was unscoped.** "When learning English" implies it applies to everyone — but academic, legal, and test-prep learners need grammar-first approaches.
 
-1. **Error fossilization without feedback (#2):** The judgment is valid when conversational practice includes corrective feedback, but the initial response did not make this condition explicit.
-2. **Goal dependency (#3):** Conversation-first is not the best approach for all English learning goals. Academic, legal, or writing-focused learners may benefit more from grammar-first approaches.
-
-**Revised judgment:** For learners whose goal is communicative fluency, conversation-first (with corrective feedback) is strongly supported. But the original claim is over-broad — it should be scoped to conversational fluency goals, and it should specify that feedback mechanisms are necessary to mitigate fossilization risk.
+FCoT revised the judgment from "largely sound" to "valid only for communicative fluency goals with corrective feedback." The original universal framing does not survive falsification.

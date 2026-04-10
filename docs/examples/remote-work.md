@@ -35,17 +35,34 @@ individual's home environment, and how well the team is structured for remote
 collaboration.
 ```
 
-The AI provides a balanced analysis with citations. It pushes back gently on the universal claim but still partially validates it. The response sounds thorough — but FCoT reveals weaknesses in its own reasoning.
-
 ## With FCoT
 
 ```
 > /fcot
-```
 
 ## FCoT: Remote work is more productive than office work (as a general claim)
 
 ### Counter-Arguments
+
+| # | Counter-Argument | Dismissal Condition | Verification | Result |
+|---|-----------------|---------------------|--------------|--------|
+| 1 | Bloom's call center study is narrow, not generalizable. | Dismissed if diverse studies also show consistent gains. | Later research shows mixed/null effects. Doesn't generalize. | ✗ |
+| 2 | Collaboration, mentorship, creative work suffer remotely. | Dismissed if remote teams maintain equivalent quality long-term. | Stanford/Harvard/MIT find reduced knowledge transfer, weaker mentorship. | ✗ |
+| 3 | Self-reported gains have social desirability bias. | Dismissed if objective measures also show consistent gains. | Objective studies are mixed; self-report is systematically more positive. | ✗ |
+| 4 | Home environment is a massive confound. | Dismissed if studies control for it and still find broad benefits. | Most studies don't control for it; those that do find heterogeneous results. | ✗ |
+| 5 | Hybrid models outperform both extremes. | Dismissed if hybrid isn't consistently superior. | Bloom 2022-2024 and corporate studies find hybrid is the optimum. | ✗ |
+
+### Conclusion
+
+**Judgment changed.**
+
+Every counter-argument stands. The blanket claim does not survive falsification.
+Hybrid models with task-dependent flexibility outperform either extreme.
+```
+
+### Analysis
+
+#### Counter-Arguments
 
 | # | Counter-Argument | Dismissal Condition | Verification | Result |
 |---|-----------------|---------------------|--------------|--------|
@@ -55,10 +72,14 @@ The AI provides a balanced analysis with citations. It pushes back gently on the
 | 4 | Home environment is a massive confound — "remote" is not uniform when a private office and a noisy apartment are categorically different. | Dismissed if studies control for home environment quality and still find broad benefits. | Most population-level studies do not adequately control for home environment; those that do find significantly heterogeneous results. | ✗ |
 | 5 | Hybrid models outperform both pure-remote and pure-office in recent studies, meaning the dichotomy in the claim is itself misleading. | Dismissed if hybrid outcomes are not consistently superior to fully remote. | Bloom's 2022-2024 work and multiple corporate studies find hybrid (2-3 days) is the current best-evidence optimum. | ✗ |
 
-### Conclusion
+#### Summary
 
-**Judgment changed.**
+This is the strongest FCoT result in the set — **all five counter-arguments stand**, leading to a judgment change.
 
-Every counter-argument stands. "Remote work is more productive than office work" does not survive falsification as a general claim. The evidence supports a narrower version: remote work *can* improve productivity for focused individual tasks under favorable home conditions, but the blanket claim fails on generalizability, collaboration effects, measurement bias, environmental confounds, and the superiority of hybrid models.
+The AI's initial response already hedged the claim, but FCoT revealed that even the hedged position was too generous. The key findings:
 
-The initial response correctly hedged the claim — but FCoT confirms that even the hedged position should be stronger: *hybrid models with task-dependent flexibility outperform either extreme.* The original user statement should not have been affirmed even partially without this qualification.
+- The most-cited evidence (Bloom's call center study) doesn't generalize to knowledge work
+- Self-reported productivity data is systematically more positive than objective measures
+- Hybrid models consistently outperform both extremes in recent research
+
+FCoT changed the conclusion from "nuanced, depends on context" to "the blanket claim fails — hybrid models are the defensible position." A materially stronger and more actionable conclusion.

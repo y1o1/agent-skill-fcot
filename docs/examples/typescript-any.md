@@ -30,17 +30,35 @@ deliberate choice — not laziness. Treat it as technical debt to revisit. Use E
 `eslint-disable` comments where `any` is genuinely justified.
 ```
 
-The AI agrees with the spirit and gives a reasonable breakdown of legitimate use cases. The position — "avoid by default, use deliberately" — is sensible but already aligned with the user's direction.
-
 ## With FCoT
 
 ```
 > /fcot
-```
 
-## FCoT: "Avoid `any` in TypeScript, but 'never' is too strong — `any` has legitimate use cases and should be used deliberately, not carelessly"
+## FCoT: "Never use `any`" is too strong — `any` has legitimate use cases and should be used deliberately, not carelessly
 
 ### Counter-Arguments
+
+| # | Counter-Argument | Dismissal Condition | Verification | Result |
+|---|-----------------|---------------------|--------------|--------|
+| 1 | `unknown` covers all legitimate cases for `any`. | Dismissed if `any` is genuinely required somewhere `unknown` can't substitute. | Legacy JS internals, meta-programming patterns — genuine gap exists. | ✓ |
+| 2 | "Prototyping" validates careless use. | Dismissed if framed as tech debt to revisit. | Response explicitly said "treat it as technical debt to revisit." | ✓ |
+| 3 | "Never" is a practical heuristic that produces better outcomes. | Dismissed if response preserves strong bias against `any`. | Response frames `any` as escape hatch, names `unknown` as preferred. Calibration, not license. | ✓ |
+| 4 | `@types/*` exists for most libs — third-party justification is weak. | Dismissed if third-party-without-types is a real scenario. | Niche libs, internal tooling, auto-generated SDKs — real scenario. | ✓ |
+| 5 | Response conflates `any` with `as any` — different propagation behavior. | Dismissed if this doesn't change the core judgment. | Distinction is real but doesn't overturn "deliberate vs. careless." Precision gap only. | ✓ |
+
+### Conclusion
+
+**Judgment is sound.**
+
+All five counter-arguments dismissed. "Never use `any`" is too strong. The real
+principle — prefer `unknown`, use `any` deliberately and at defined boundaries —
+survives falsification.
+```
+
+### Analysis
+
+#### Counter-Arguments
 
 | # | Counter-Argument | Dismissal Condition | Verification | Result |
 |---|-----------------|---------------------|--------------|--------|
@@ -50,10 +68,8 @@ The AI agrees with the spirit and gives a reasonable breakdown of legitimate use
 | 4 | Third-party-without-types is a weak justification — `@types/*` packages exist for most libraries, and local `.d.ts` stubs are better practice. | Dismissed if third-party-without-types is a real, non-trivial scenario in contemporary TypeScript. | Niche and legacy libraries, internal tooling, and auto-generated SDK clients do appear without complete types. The point holds, if slightly overstated. | ✓ |
 | 5 | The response conflates `any` with type assertions (`as any`). Variable-typed `any` propagates unsafely, while `as any` in a targeted cast is local. | Dismissed if this distinction doesn't change the core judgment. | The distinction is real and worth noting, but the core judgment ("deliberate vs. careless") survives. It's a precision gap, not a falsification. | ✓ |
 
-### Conclusion
+#### Summary
 
-**Judgment is sound.**
+This is an example where **FCoT confirms the initial judgment**. The AI's position — "avoid `any` by default, use it deliberately" — was already well-reasoned. All five counter-arguments were dismissed.
 
-All five counter-arguments were dismissed. The core judgment — that "never use `any`" is too strong, and the real principle is deliberate rather than careless use — survives falsification.
-
-One precision gap identified: the response doesn't distinguish between variable-typed `any` (which propagates) and targeted `as any` casts (which are more local). Worth noting as a refinement, but doesn't overturn the judgment.
+FCoT still added value: it identified a precision gap (variable-typed `any` vs. targeted `as any` have different propagation behavior) that could improve the advice. But the core judgment survived falsification intact.

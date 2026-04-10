@@ -35,17 +35,35 @@ The statement is correct and the advice is well-established. Hashing passwords i
 non-negotiable in modern software.
 ```
 
-The AI fully agrees. "Absolutely." No pushback, no nuance — complete validation of the user's statement. This is the expected response for a well-established security principle.
-
 ## With FCoT
 
 ```
 > /fcot
-```
 
 ## FCoT: Passwords must be hashed (not stored in plaintext) using a slow, salted algorithm
 
 ### Counter-Arguments
+
+| # | Counter-Argument | Dismissal Condition | Verification | Result |
+|---|-----------------|---------------------|--------------|--------|
+| 1 | Weak hashing (MD5, unsalted SHA-1) is still crackable. | Dismissed if response recommends strong algorithms + salting. | Response named bcrypt/Argon2/scrypt, explained slow + salted. | ✓ |
+| 2 | Legacy protocols (CHAP, NTLM) need the original password. | Dismissed if scoped to modern web auth. | Response is implicitly scoped but opening is unqualified. Gap. | ✗ |
+| 3 | Hashing is irrelevant if password is exposed in transit/logs. | Dismissed if scoped to storage security. | Response is explicitly about storage ("a database is breached"). | ✓ |
+| 4 | HSMs/encrypted storage could be an alternative. | Dismissed if this conflates encryption with hashing. | Encryption ≠ hashing. HSMs still hash internally. Conflation. | ✓ |
+| 5 | "Use vetted library" doesn't address deprecated libs. | Dismissed if this is a general maintenance concern. | General concern, not a flaw in the hashing judgment itself. | ✓ |
+
+### Conclusion
+
+**Revision needed (narrow scope).**
+
+Counter-argument #2 stands. Specific legacy protocols (CHAP, NTLM) require access
+to the original credential. A more precise version: "In standard application
+authentication, passwords must be hashed..."
+```
+
+### Analysis
+
+#### Counter-Arguments
 
 | # | Counter-Argument | Dismissal Condition | Verification | Result |
 |---|-----------------|---------------------|--------------|--------|
@@ -55,10 +73,10 @@ The AI fully agrees. "Absolutely." No pushback, no nuance — complete validatio
 | 4 | HSMs or encrypted storage could be considered an alternative to hashing in regulated environments. | Dismissed if the counter-argument conflates encryption (reversible) with hashing (irreversible). | Encryption-at-rest is not equivalent to password hashing for authentication. If the encryption key is compromised, all passwords are exposed. HSMs for password storage still perform hashing internally. | ✓ |
 | 5 | "Use your language's vetted library" doesn't address deprecated or poorly maintained libraries. | Dismissed if this is a general software maintenance concern, not a flaw in the hashing-over-plaintext judgment. | The counter-argument attacks completeness of library guidance, not the core judgment. Keeping dependencies updated is a separate, universal concern. | ✓ |
 
-### Conclusion
+#### Summary
 
-**Revision needed (narrow scope).**
+This example shows that **FCoT doesn't always overturn the conclusion.** The AI's initial response was correct — password hashing is a well-established security principle, and the practical advice (bcrypt/Argon2/scrypt) was sound.
 
-Counter-argument #2 stands. The statement "passwords should be hashed, not stored in plaintext" is correct for the vast majority of use cases. However, specific legacy authentication protocols (CHAP, NTLM, some RADIUS configurations) require access to the original credential, making one-way hashing architecturally incompatible.
+FCoT still added value by surfacing one edge case: legacy authentication protocols (CHAP, NTLM) that architecturally require access to the original credential. The judgment stands for standard web authentication — but could be stated more precisely.
 
-A more precise version: *"In standard application authentication, passwords must be hashed..."* — or acknowledge the edge case explicitly. The practical advice (bcrypt/Argon2/scrypt, avoid MD5/SHA-1) is sound and stands intact. The revision needed is in precision of scope, not substance.
+This demonstrates an important property: FCoT is not a contrarianism tool. When a judgment is sound, FCoT confirms it. When it finds issues, they're genuine — not manufactured disagreement.

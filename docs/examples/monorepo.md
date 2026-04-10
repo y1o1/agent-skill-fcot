@@ -30,17 +30,37 @@ now, but maybe later" — that's YAGNI territory. I'd want to understand the act
 coupling trajectory before recommending migration.
 ```
 
-The AI pushes back and asks for concrete pain points. The response is reasonable but frames the decision as binary: either you have pain now, or you don't need a monorepo.
-
 ## With FCoT
 
 ```
 > /fcot
-```
 
-## FCoT: Monorepo migration is not justified for this project without evidence of concrete cross-repo coupling
+## FCoT: Monorepo migration is not justified without evidence of concrete cross-repo coupling
 
 ### Counter-Arguments
+
+| # | Counter-Argument | Dismissal Condition | Verification | Result |
+|---|-----------------|---------------------|--------------|--------|
+| 1 | Monorepo is the industry standard (Google, Meta, etc.). | Dismissed if those orgs' context differs structurally. | Google needs Piper/Blaze, 100k+ engineers. Analogy doesn't hold. | ✓ |
+| 2 | Proactive migration is cheaper than reactive. | Dismissed if growth trajectory isn't toward high coupling. | Can't confirm from current state. If multi-package SDK ahead, early is cheaper. | ✗ |
+| 3 | Unified CI/tooling is easier in a monorepo. | Dismissed if project is small enough that duplication is low-cost. | One skill file, two READMEs. Duplication is trivial at this scale. | ✓ |
+| 4 | "Wait for pain" has survivorship bias. | Dismissed if bias is symmetric. | Both directions have documented failures. Bias is symmetric. | ✓ |
+| 5 | User may have info about future direction. | Dismissed if response solicited that context. | Response asked "What concrete pain?" — framed as conditional. | ✓ |
+
+### Conclusion
+
+**Revision needed.**
+
+Counter-argument #2 stands. The question should be about coupling trajectory,
+not current pain.
+
+**Revised recommendation:** Answer two questions first — (1) what packages in 12
+months, and (2) how often will cross-package atomic changes be needed?
+```
+
+### Analysis
+
+#### Counter-Arguments
 
 | # | Counter-Argument | Dismissal Condition | Verification | Result |
 |---|-----------------|---------------------|--------------|--------|
@@ -50,10 +70,10 @@ The AI pushes back and asks for concrete pain points. The response is reasonable
 | 4 | "Wait for pain" has survivorship bias — teams that migrated proactively and avoided pain don't show up in case studies. | Dismissed if the survivorship bias is symmetric — failed monorepo migrations also exist but are under-reported. | Both directions have documented failures. The bias argument is symmetric and doesn't favor either direction. | ✓ |
 | 5 | The user may have information about the project's future direction — dismissing the suggestion without asking may reject a well-informed decision. | Dismissed if the response clearly solicited that context rather than issuing a flat rejection. | The response explicitly asked "What concrete pain is the migration meant to solve?" and framed the recommendation as conditional. | ✓ |
 
-### Conclusion
+#### Summary
 
-**Revision needed.**
+The AI's initial response asked "what concrete pain?" — a reasonable question, but one that frames the decision around *current* problems. FCoT found a blind spot:
 
-Counter-argument #2 stands. The "wait for pain" heuristic is correct as a default but insufficiently diagnostic. The more precise question is not "are you in pain now?" but "what is the coupling trajectory of this project?"
+**Proactive migration can be cheaper than reactive.** If the project's roadmap includes multiple tightly-coupled packages, waiting until the pain is acute means migrating with more code and history. The "wait for pain" heuristic is correct as a default, but the better diagnostic question is about *coupling trajectory*, not current pain.
 
-**Revised recommendation:** Before deciding, answer two questions — (1) what packages are expected to exist in 12 months, and (2) how frequently will cross-package atomic changes be needed? The answers determine whether migration is premature or overdue.
+FCoT refined the recommendation from "show me the pain" to "answer two forward-looking questions" — a more useful framework for the decision.
