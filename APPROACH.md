@@ -1,6 +1,30 @@
-# Approach — Prior Art and Positioning
+# Approach — Theory, Prior Art, and Positioning
 
-FCoT combines three well-studied ideas in a way that, as of early 2025, has no direct precedent in the literature. This document maps the relationship to existing work.
+## The Problem
+
+LLMs tend toward sycophancy — agreeing with users even when they shouldn't. When an AI says "yes, that's a good approach," how do you know it actually evaluated the alternatives?
+
+## The Solution
+
+FCoT applies Popper's falsificationism to AI reasoning:
+
+1. Treat every judgment as a hypothesis
+2. Enumerate counter-arguments against it
+3. Pre-declare specific conditions that would dismiss each counter-argument (FN bias)
+4. Verify each condition
+5. Only confirm the judgment if all counter-arguments are dismissed
+
+This transforms agreement from "I can't think of why I'm wrong" (argument from ignorance) into "I defined what would prove me wrong, checked each case, and none held" (self-binding logical inference).
+
+## Theory
+
+**FCoT = FN bias + Falsification + Chain of Thought**
+
+- **FN bias (False Negative bias):** Pre-declaring dismissal conditions prevents post-hoc rationalization
+- **Falsification (Popper):** Hypotheses gain credibility by surviving refutation attempts, not by accumulating confirmation
+- **Chain of Thought:** Step-by-step elimination of counter-arguments creates an auditable reasoning trace
+
+FCoT combines three well-studied ideas in a way that, as of early 2025, has no direct precedent in the literature. The sections below map the relationship to existing work.
 
 ## Components and Prior Art
 
@@ -39,38 +63,15 @@ FCoT's contribution is narrow but real: the FN bias mechanism applied as per-arg
 
 ## Observed effects
 
-We ran FCoT on 6 judgment statements (3 technical, 2 general, 1 well-established principle) and compared the results against the same model's unstructured response. Each result was then evaluated post-hoc for whether FCoT produced the expected behavior. The full before/after comparisons with per-example evaluations are in [docs/examples/](docs/examples/).
+We ran FCoT on 13 judgment statements (6 technical, 4 general, 3 well-established principles) and compared the results against the same model's unstructured response (Claude Sonnet 4.6). Achievement score: **11.5 / 13 (88.5%)**.
 
-### Evaluation summary
+Three patterns emerged:
 
-| Example | FCoT Result | Expected | Eval | Rationale |
-| ------- | ----------- | -------- | ---- | --------- |
-| [grammar-vs-conversation](docs/examples/grammar-vs-conversation.md) | Revised | Should revise | ⭕️ | Correctly detected unscoped claim and missing feedback condition |
-| [jwt-vs-session](docs/examples/jwt-vs-session.md) | Revised | Should revise | ⭕️ | Correctly dismantled false equivalence (CSRF, misimplementation asymmetry) |
-| [monorepo](docs/examples/monorepo.md) | Revised | Should revise | 🔺 | Useful reframing but modest — original was directionally correct |
-| [password-hashing](docs/examples/password-hashing.md) | Narrow revision | Should confirm | ⭕️ | Correctly confirmed; edge case (CHAP/NTLM) adds precision |
-| [remote-work](docs/examples/remote-work.md) | Changed | Should change | ⭕️ | All 5 counter-arguments survived; correctly exposed weak evidence base |
-| [typescript-any](docs/examples/typescript-any.md) | Confirmed | Should confirm | ⭕️ | All 5 counter-arguments dismissed; no manufactured disagreement |
+- **Judgment revised (10/13 cases).** The initial response was directionally reasonable but missed conditions that FCoT's counter-argument enumeration surfaced. The pre-declared dismissal condition forced a concrete check rather than allowing the model to wave away the counter-argument with "it depends." This is the core mechanism Huang et al. (2023) identified as missing from intrinsic self-correction.
+- **Judgment changed (1/13 cases).** All counter-arguments survived falsification. The dismissal conditions made it impossible to wave each argument away independently, forcing the model to confront the cumulative weight of evidence against its position.
+- **Judgment confirmed (2/13 cases).** All counter-arguments were dismissed. FCoT is not a contrarianism tool — when a judgment is sound, the process confirms it quickly.
 
-**Achievement score: 5.5 / 6 (91.7%)** — scoring ⭕️ = 1, 🔺 = 0.5, ❌ = 0.
-
-### Pattern analysis
-
-Three patterns emerged across the examples:
-
-**Pattern 1: Judgment revised (4/6 cases).** In grammar-vs-conversation, jwt-vs-session, monorepo, and password-hashing, the initial response was directionally reasonable but missed conditions that FCoT's counter-argument enumeration surfaced. In each case, the pre-declared dismissal condition forced a concrete check rather than allowing the model to wave away the counter-argument with "it depends." This is the core mechanism Huang et al. (2023) identified as missing from intrinsic self-correction.
-
-**Pattern 2: Judgment changed (1/6 cases).** In remote-work, all 5 counter-arguments survived falsification. The dismissal conditions made it impossible to wave each argument away independently, forcing the model to confront the cumulative weight of evidence against its position.
-
-**Pattern 3: Judgment confirmed (1/6 cases).** In typescript-any, all 5 counter-arguments were dismissed. This shows FCoT is not a contrarianism tool — when a judgment is sound, the process confirms it quickly.
-
-### Methodology and limitations
-
-- **N=6, qualitative, single model** (Claude Sonnet 4.6). No statistical testing, no reproducibility verification.
-- **Sampling bias.** Judgment statements were chosen for demonstrative value, not randomly sampled.
-- **Post-hoc evaluation.** The "expected" results in the evaluation table were set after observing FCoT's output, not predicted in advance. The examples demonstrate process behavior, not measured efficacy.
-- **Context contamination.** The initial sampling round inherited anti-sycophancy instructions from the session's configuration, producing atypically pushback-heavy control responses. A second round in a clean session produced more representative results. This itself is a finding: system prompts that encourage critical thinking are not equivalent to structured falsification.
-- **No cross-model comparison.** All samples used the same model. Whether FCoT's effects hold across different model families is untested.
+Full before/after comparisons, evaluation table, and methodology limitations are in [docs/examples/](docs/examples/).
 
 ## Open questions
 

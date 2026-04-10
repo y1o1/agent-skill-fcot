@@ -1,22 +1,47 @@
-# FCoT — Falsification Chain of Thought
+# FCoT — Verify AI judgments before you trust them
 
-A Claude Code skill that verifies AI judgments through falsificationism. Counter sycophancy bias by systematically attempting to disprove your own conclusions.
+**Falsification Chain of Thought** — a Claude Code skill that counters sycophancy bias by systematically attempting to disprove conclusions.
 
-## The Problem
+## When to use
 
-LLMs tend toward sycophancy — agreeing with users even when they shouldn't. When an AI says "yes, that's a good approach," how do you know it actually evaluated the alternatives?
+When the AI says:
 
-## The Solution
+- "Yes, that's a good approach"
+- "This refactor is safe"
+- "Package A is the better choice"
 
-FCoT applies Popper's falsificationism to AI reasoning:
+Run `/fcot`. It forces the model to:
 
-1. Treat every judgment as a hypothesis
-2. Enumerate counter-arguments against it
-3. Pre-declare specific conditions that would dismiss each counter-argument (FN bias)
-4. Verify each condition
-5. Only confirm the judgment if all counter-arguments are dismissed
+1. List real counter-arguments
+2. Pre-declare specific conditions that would dismiss each one
+3. Verify those conditions
+4. Revise the judgment if any counter-argument survives
 
-This transforms agreement from "I can't think of why I'm wrong" (argument from ignorance) into "I defined what would prove me wrong, checked each case, and none held" (self-binding logical inference).
+## What changes
+
+Without FCoT, the AI agrees with you:
+
+```
+> When learning English, you should start with conversation, not grammar.
+
+There's a lot of truth to this. Many learners spend years studying grammar rules and
+vocabulary lists but struggle to hold a real conversation when the moment comes...
+
+So the advice is largely sound, especially as a corrective for learners who over-study
+grammar and under-practice speaking.
+```
+
+Then run `/fcot`:
+
+| # | Counter-Argument | Dismissal Condition | Verification | Result |
+|---|-----------------|---------------------|--------------|--------|
+| 1 | Adults ≠ children — L1 acquisition evidence doesn't transfer to L2 | Dismissed if adult L2 research independently supports conversation-first | Krashen's Input Hypothesis, Long's Interaction Hypothesis support it | ✓ |
+| 2 | Early errors fossilize without grammar foundation | Dismissed if fossilization risk is low with corrective feedback | Real risk in low-feedback environments; initial response didn't specify feedback conditions | ✗ |
+| 3 | Some learners need grammar-first (academic writing, legal English, testing) | Dismissed if scoped to general communicative fluency | Original claim is unqualified — implies universal applicability | ✗ |
+
+**Revision needed.** The claim is over-broad — conversation-first works for communicative fluency goals with corrective feedback, but not as universal advice.
+
+Across [13 examples](docs/examples/): **11.5 / 13 (88.5%)** expected behavior (⭕️=1, 🔺=0.5, ❌=0). See [APPROACH.md](APPROACH.md) for methodology, theory, and limitations.
 
 ## Install
 
@@ -56,43 +81,9 @@ Works in any language:
 fcotで検証して
 ```
 
-## Output
+## How it works
 
-Without FCoT, the AI agrees with you:
-
-```
-> When learning English, you should start with conversation, not grammar.
-
-There's a lot of truth to this. Many learners spend years studying grammar rules and
-vocabulary lists but struggle to hold a real conversation when the moment comes...
-
-So the advice is largely sound, especially as a corrective for learners who over-study
-grammar and under-practice speaking.
-```
-
-Then run `/fcot`:
-
-| # | Counter-Argument | Dismissal Condition | Verification | Result |
-|---|-----------------|---------------------|--------------|--------|
-| 1 | Adults ≠ children — L1 acquisition evidence doesn't transfer to L2 | Dismissed if adult L2 research independently supports conversation-first | Krashen's Input Hypothesis, Long's Interaction Hypothesis support it | ✓ |
-| 2 | Early errors fossilize without grammar foundation | Dismissed if fossilization risk is low with corrective feedback | Real risk in low-feedback environments; initial response didn't specify feedback conditions | ✗ |
-| 3 | Some learners need grammar-first (academic writing, legal English, testing) | Dismissed if scoped to general communicative fluency | Original claim is unqualified — implies universal applicability | ✗ |
-
-**Revision needed.** The claim is over-broad — conversation-first works for communicative fluency goals with corrective feedback, but not as universal advice.
-
-Across [6 examples](docs/examples/) evaluated post-hoc: **5.5 / 6 (91.7%)** expected behavior (⭕️=1, 🔺=0.5, ❌=0). See [APPROACH.md](APPROACH.md) for methodology and limitations.
-
-## Theory
-
-**FCoT = FN bias + Falsification + Chain of Thought**
-
-- **FN bias (False Negative bias):** Pre-declaring dismissal conditions prevents post-hoc rationalization
-- **Falsification (Popper):** Hypotheses gain credibility by surviving refutation attempts, not by accumulating confirmation
-- **Chain of Thought:** Step-by-step elimination of counter-arguments creates an auditable reasoning trace
-
-## Prior Art
-
-See [APPROACH.md](APPROACH.md) for how FCoT relates to existing research (POPPER, CRITIC, Constitutional AI, Debate, etc.) and what it adds.
+See [APPROACH.md](APPROACH.md) for the theory (FN bias + Falsification + Chain of Thought), prior art, methodology, and limitations.
 
 ## Feedback
 
