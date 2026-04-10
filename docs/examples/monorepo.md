@@ -4,35 +4,56 @@
 
 ## Without FCoT
 
-That's a real "it depends" situation. What's the actual pain driving that suggestion?
+```
+> This project should migrate to a monorepo.
 
-Monorepos are genuinely great when you have tight interdependencies — shared libraries being consumed by multiple packages, atomic cross-cutting changes, a unified CI story. If you're constantly doing "bump version in repo A, update dep in repo B, pray nothing breaks" — yeah, a monorepo solves that friction hard.
+Looking at this project, I'd actually push back on that suggestion — at least without
+more context.
 
-But looking at this project, it's a single skill file (`fcot.md`) in what's essentially a plugin/skill repository. The repo is clean, the scope is narrow. Migrating to a monorepo right now would be adding infrastructure for a problem that doesn't exist yet.
+Monorepos shine when you have tight interdependencies: multiple packages sharing code,
+frequent atomic cross-cutting changes, and a unified CI/CD story you want to own in one
+place. The overhead of tooling (Turborepo, Nx, Bazel) is worth it when the coupling
+between packages justifies it.
 
-The classic mistake is conflating "we have multiple repos" with "we need a monorepo." They're not the same thing. A monorepo makes sense when the *coupling between repos* justifies the tooling overhead — Turborepo, Nx, Bazel, whatever you end up needing.
+This project — the FCoT skill repository — is a single focused skill with
+documentation. The scope is narrow, the structure is clean, and there's no evidence of
+the cross-repo coordination friction that monorepos exist to solve. Migrating now would
+be adding infrastructure for a problem that doesn't exist yet.
 
-What would actually change post-migration? If the answer is "nothing concrete right now, but maybe in the future..." — that's YAGNI, and I'd push back on it.
+The common mistake is conflating "we have multiple repos" with "we need a monorepo."
+A monorepo is a solution to a specific problem: coupling between repos that makes
+independent versioning and deployment painful. If that coupling doesn't exist, the
+monorepo just adds complexity.
 
-What specific pain are you trying to solve?
+What concrete pain is the migration meant to solve? If the answer is "nothing right
+now, but maybe later" — that's YAGNI territory. I'd want to understand the actual
+coupling trajectory before recommending migration.
+```
+
+The AI pushes back and asks for concrete pain points. The response is reasonable but frames the decision as binary: either you have pain now, or you don't need a monorepo.
 
 ## With FCoT
 
-## FCoT: Monorepo migration is not justified without evidence of concrete cross-repo pain
+```
+> /fcot
+```
+
+## FCoT: Monorepo migration is not justified for this project without evidence of concrete cross-repo coupling
 
 ### Counter-Arguments
 
 | # | Counter-Argument | Dismissal Condition | Verification | Result |
 |---|-----------------|---------------------|--------------|--------|
-| 1 | Monorepo is the industry standard now — major orgs (Google, Meta, Microsoft) use it, so the default should be monorepo, not polyrepo. | Dismissed if organizational scale or tooling maturity requirements of those orgs don't apply to the typical project under discussion, making the comparison misleading. | Google's monorepo requires Piper/Blaze, custom VCS infrastructure. Meta uses Buck. These systems aren't accessible to most teams. The "industry standard" framing conflates outcome (monorepo structure) with context (massive org with dedicated infra teams). For a small-to-mid project, the analogy doesn't hold. | ✓ |
-| 2 | Proactive migration is cheaper than reactive migration — waiting until cross-repo pain is acute means migrating under pressure with more code and more history to handle. | Dismissed if the expected probability of reaching that pain point is low enough that the upfront cost of migration exceeds the expected future cost. | For a project that *will* grow into multiple closely-coupled libs, early migration is cheaper. However, this assumes the growth trajectory is known. Without evidence this project is heading toward high cross-repo coupling, it's speculative. | ✗ |
-| 3 | Code sharing and atomic commits across packages are only possible in a monorepo — polyrepo creates coordination overhead that slows teams down structurally. | Dismissed if the repos in question have low coupling and cross-repo atomic changes are rare. | Context-dependent. If repos have clean API boundaries and change independently, this is a non-issue. Without knowing the project's actual coupling, can't dismiss — but the original response correctly flagged "what's the actual pain point" as the key question. | ✗ |
-| 4 | My "wait for pain" heuristic has survivorship bias — teams that proactively migrated don't show up as case studies because they avoided the pain silently. | Dismissed if there are also documented cases of failed or costly monorepo migrations that offset the survivorship bias. | Both directions have survivorship bias. Teams that migrated and struggled also exist (companies that migrated to monorepo and then back, or got stuck in half-migrated states). The bias argument is symmetric. | ✓ |
+| 1 | Monorepo is the industry standard — major orgs (Google, Meta, Microsoft, Shopify) use it, so the default should favor monorepo. | Dismissed if the organizational context and tooling requirements of those orgs are structurally different from a small focused project. | Google requires Piper/Blaze, Meta uses Buck — custom VCS infrastructure unavailable to most teams. These orgs operate at 100k+ engineers with full-time infra teams. The analogy doesn't hold. | ✓ |
+| 2 | Proactive migration is cheaper than reactive migration — waiting until pain is acute means migrating with more history and code to consolidate. | Dismissed if the project's growth trajectory is not clearly headed toward high cross-repo coupling. | Cannot be confirmed from current state alone. If this repo grows into a multi-package SDK, early migration is structurally cheaper. Without knowing the roadmap, "wait for pain" may be systematically too late. | ✗ |
+| 3 | Unified CI, shared linting, and consistent tooling are easier in a monorepo — these benefits exist independent of cross-package coupling. | Dismissed if the project is small enough that duplicating tooling config is low-cost. | At current scale (one skill file, one install script, two READMEs), duplicated tooling config is trivial. The benefit doesn't outweigh migration overhead until 3+ packages. | ✓ |
+| 4 | "Wait for pain" has survivorship bias — teams that migrated proactively and avoided pain don't show up in case studies. | Dismissed if the survivorship bias is symmetric — failed monorepo migrations also exist but are under-reported. | Both directions have documented failures. The bias argument is symmetric and doesn't favor either direction. | ✓ |
+| 5 | The user may have information about the project's future direction — dismissing the suggestion without asking may reject a well-informed decision. | Dismissed if the response clearly solicited that context rather than issuing a flat rejection. | The response explicitly asked "What concrete pain is the migration meant to solve?" and framed the recommendation as conditional. | ✓ |
 
 ### Conclusion
 
 **Revision needed.**
 
-Counter-arguments #2 and #3 stand. The question isn't "do you have pain right now?" but "what is this project's coupling trajectory?" If the answer is "high coupling, shared libraries, frequent cross-boundary changes" — migrate sooner rather than later. If repos are genuinely independent services with clean API contracts — migration adds cost with no structural benefit.
+Counter-argument #2 stands. The "wait for pain" heuristic is correct as a default but insufficiently diagnostic. The more precise question is not "are you in pain now?" but "what is the coupling trajectory of this project?"
 
-The initial pushback was right to ask for specifics, but should have framed the diagnostic questions around coupling trajectory rather than current pain alone.
+**Revised recommendation:** Before deciding, answer two questions — (1) what packages are expected to exist in 12 months, and (2) how frequently will cross-package atomic changes be needed? The answers determine whether migration is premature or overdue.
