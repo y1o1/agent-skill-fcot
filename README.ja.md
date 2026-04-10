@@ -23,8 +23,8 @@ FCoTはポパーの反証主義をAIの推論に適用する:
 ### 手動（シンボリックリンク）
 
 ```bash
-git clone <repo-url>
-cd fcot
+git clone https://github.com/y1o1/agent-skill-fcot.git
+cd agent-skill-fcot
 ./install.sh
 ```
 
@@ -78,6 +78,10 @@ FCoTは構造化されたテーブルを出力する:
 ## 先行研究
 
 FCoTと既存研究（POPPER, CRITIC, Constitutional AI, Debate等）との関係については [APPROACH.md](APPROACH.md)（[日本語版](APPROACH.ja.md)）を参照。
+
+## フィードバック
+
+質問、アイデア、バグ報告は [Feedback & Discussion](https://github.com/y1o1/agent-skill-fcot/issues/1) へどうぞ。
 
 ## ライセンス
 

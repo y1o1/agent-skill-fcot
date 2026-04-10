@@ -79,6 +79,10 @@ Followed by a conclusion: **sound**, **needs revision**, or **changed**.
 
 See [APPROACH.md](APPROACH.md) for how FCoT relates to existing research (POPPER, CRITIC, Constitutional AI, Debate, etc.) and what it adds.
 
+## Feedback
+
+Questions, ideas, or bug reports? Post in [Feedback & Discussion](https://github.com/y1o1/agent-skill-fcot/issues/1).
+
 ## License
 
 MIT
