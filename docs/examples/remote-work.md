@@ -152,3 +152,9 @@ The revision is real but narrow: the conclusion structure remains the same ("bla
 | Counter-argument coverage | ⭕️ | Tested 6 angles including methodological challenges (selection bias, tool maturation, environment quality). Found the one real gap (async-first org distinction) that the Control missed. |
 | Conclusion direction | 🔺 | Expected a larger revision given the subject. Got a minor but real revision — Control was already nuanced enough that only one blind spot remained. |
 | Overall | 🔺 | FCoT performed correctly but the outcome was a minor revision rather than a substantive one. Control's pre-existing balance limited how much FCoT could surface. |
+
+### Limitation
+
+This is an example where FCoT added limited value. The Control response was already nuanced — it acknowledged multiple factors and didn't strongly agree or disagree. FCoT's counter-arguments largely overlapped with points Control had already raised. The one genuinely new finding (async-first org distinction) was substantive but narrow.
+
+**When FCoT adds less value:** When the Control response is already well-balanced and resists sycophancy on its own, FCoT's structured falsification has less room to improve. This is not a failure of the method — it correctly identifies that the existing judgment is largely sound. The limitation is that the overhead of the full FCoT process may not be justified for judgments where the model is already critical.
