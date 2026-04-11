@@ -48,7 +48,7 @@ Then run `/fcot`:
 
 **Revision needed.** The claim is over-broad — conversation-first works for communicative fluency goals with corrective feedback, but not as universal advice.
 
-Across [12 examples](docs/examples/): **10 / 12 (83.3%)** effectiveness — FCoT meaningfully improved or verified the judgment (⭕️=1, 🔺=0.5, ❌=0). Revised or changed in 9/12 cases, confirmed with evidence in 3/12. See [APPROACH.md](APPROACH.md) for methodology, theory, and limitations.
+Across [15 examples](docs/examples/): **12 / 15 (80.0%)** effectiveness — FCoT meaningfully improved or verified the judgment (⭕️=1, 🔺=0.5, ❌=0). Revised or changed in 10/15 cases, confirmed with evidence in 5/15. See [APPROACH.md](APPROACH.md) for methodology, theory, and limitations.
 
 ## What to expect
 

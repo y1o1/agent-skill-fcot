@@ -63,15 +63,15 @@ FCoT's contribution is narrow but real: the FN bias mechanism applied as per-arg
 
 ## Observed effects
 
-We ran FCoT on 12 judgment statements (5 technical, 4 general, 3 well-established principles) using context-isolated CLI processes (Claude Sonnet 4.6). FCoT effectiveness: **10 / 12 (83.3%)**. Expectation match: **6.5 / 12 (54.2%)**.
+We ran FCoT on 15 judgment statements (5 technical, 4 general, 3 well-established principles, 3 stress-test cases) using context-isolated CLI processes (Claude Sonnet 4.6). FCoT effectiveness: **12 / 15 (80.0%)**. Expectation match: **8.5 / 15 (56.7%)**.
 
 Effectiveness measures whether FCoT meaningfully improved or verified the judgment — the metric users care about. Expectation match measures whether the conclusion direction matched predictions — a methodology quality metric. The gap reflects that predictions were often wrong while FCoT still functioned correctly (e.g., confirming a sound judgment when revision was predicted).
 
 Three patterns emerged:
 
-- **Judgment revised (8/12 cases).** The initial response was directionally reasonable but missed conditions that FCoT's counter-argument enumeration surfaced. The pre-declared dismissal condition forced a concrete check rather than allowing the model to wave away the counter-argument with "it depends." This is the core mechanism Huang et al. (2023) identified as missing from intrinsic self-correction.
-- **Judgment changed (1/12 cases).** All counter-arguments survived falsification. The dismissal conditions made it impossible to wave each argument away independently, forcing the model to confront the cumulative weight of evidence against its position.
-- **Judgment confirmed (3/12 cases).** All counter-arguments were dismissed. FCoT is not a contrarianism tool — when a judgment is sound, the process confirms it quickly.
+- **Judgment revised (9/15 cases).** The initial response was directionally reasonable but missed conditions that FCoT's counter-argument enumeration surfaced. The pre-declared dismissal condition forced a concrete check rather than allowing the model to wave away the counter-argument with "it depends." This is the core mechanism Huang et al. (2023) identified as missing from intrinsic self-correction.
+- **Judgment changed (1/15 cases).** All counter-arguments survived falsification. The dismissal conditions made it impossible to wave each argument away independently, forcing the model to confront the cumulative weight of evidence against its position.
+- **Judgment confirmed (5/15 cases).** All counter-arguments were dismissed. FCoT is not a contrarianism tool — when a judgment is sound, the process confirms it quickly.
 
 Full before/after comparisons, execution protocol, evaluation table, and methodology limitations are in [docs/examples/](docs/examples/).
 
