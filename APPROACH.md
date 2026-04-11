@@ -63,7 +63,9 @@ FCoT's contribution is narrow but real: the FN bias mechanism applied as per-arg
 
 ## Observed effects
 
-We ran FCoT on 12 judgment statements (5 technical, 4 general, 3 well-established principles) using context-isolated CLI processes (Claude Sonnet 4.6). Achievement score: **6.5 / 12 (54.2%)** against pre-defined or post-hoc expected behavior.
+We ran FCoT on 12 judgment statements (5 technical, 4 general, 3 well-established principles) using context-isolated CLI processes (Claude Sonnet 4.6). FCoT effectiveness: **10 / 12 (83.3%)**. Expectation match: **6.5 / 12 (54.2%)**.
+
+Effectiveness measures whether FCoT meaningfully improved or verified the judgment — the metric users care about. Expectation match measures whether the conclusion direction matched predictions — a methodology quality metric. The gap reflects that predictions were often wrong while FCoT still functioned correctly (e.g., confirming a sound judgment when revision was predicted).
 
 Three patterns emerged:
 
