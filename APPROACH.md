@@ -63,32 +63,27 @@ FCoT's contribution is narrow but real: the FN bias mechanism applied as per-arg
 
 ## Observed effects
 
-We ran FCoT on 13 judgment statements (6 technical, 4 general, 3 well-established principles) and compared the results against the same model's unstructured response (Claude Sonnet 4.6). Achievement score: **11.5 / 13 (88.5%)**.
+We ran FCoT on 12 judgment statements (5 technical, 4 general, 3 well-established principles) using context-isolated CLI processes (Claude Sonnet 4.6). Achievement score: **6.5 / 12 (54.2%)** against pre-defined or post-hoc expected behavior.
 
 Three patterns emerged:
 
-- **Judgment revised (10/13 cases).** The initial response was directionally reasonable but missed conditions that FCoT's counter-argument enumeration surfaced. The pre-declared dismissal condition forced a concrete check rather than allowing the model to wave away the counter-argument with "it depends." This is the core mechanism Huang et al. (2023) identified as missing from intrinsic self-correction.
-- **Judgment changed (1/13 cases).** All counter-arguments survived falsification. The dismissal conditions made it impossible to wave each argument away independently, forcing the model to confront the cumulative weight of evidence against its position.
-- **Judgment confirmed (2/13 cases).** All counter-arguments were dismissed. FCoT is not a contrarianism tool — when a judgment is sound, the process confirms it quickly.
+- **Judgment revised (8/12 cases).** The initial response was directionally reasonable but missed conditions that FCoT's counter-argument enumeration surfaced. The pre-declared dismissal condition forced a concrete check rather than allowing the model to wave away the counter-argument with "it depends." This is the core mechanism Huang et al. (2023) identified as missing from intrinsic self-correction.
+- **Judgment changed (1/12 cases).** All counter-arguments survived falsification. The dismissal conditions made it impossible to wave each argument away independently, forcing the model to confront the cumulative weight of evidence against its position.
+- **Judgment confirmed (3/12 cases).** All counter-arguments were dismissed. FCoT is not a contrarianism tool — when a judgment is sound, the process confirms it quickly.
 
-Full before/after comparisons, evaluation table, and methodology limitations are in [docs/examples/](docs/examples/).
+Full before/after comparisons, execution protocol, evaluation table, and methodology limitations are in [docs/examples/](docs/examples/).
 
-### Context separation effect
+### Context contamination findings
 
-Running Control and FCoT in the same context (single session or subagent) vs. fully separate CLI processes produced materially different results for the same subject ("Code reviews are valuable and every team should do them"):
+Running evaluations revealed three forms of context contamination that affect FCoT results:
 
-| | Same context | Separate process |
-|---|---|---|
-| FCoT counter-arguments surviving | 1/4 | 4/5 |
-| FCoT conclusion | Narrow revision (strengthens Control) | Revision (overturns Control's pushback) |
+1. **System prompt bias.** Anti-sycophancy instructions in `CLAUDE.md` produced atypically pushback-heavy control responses. System prompts that encourage critical thinking are not equivalent to structured falsification.
 
-In the same-context condition, FCoT found a gap that *added to* the Control response. In the separate-process condition, FCoT found that the Control's pushback was largely cosmetically contrarian — "misattributed a culture problem to the practice" — and reversed direction toward the original claim.
+2. **Consistency bias.** Running Control and FCoT in the same context (single session or subagent) vs. separate CLI processes produced materially different results. In the same-context condition, FCoT maintained coherence with its prior output rather than evaluating it critically.
 
-The likely mechanism: **consistency bias.** When FCoT runs in the same context as the Control response, the model has an implicit incentive to maintain coherence with its prior output. Separate processes eliminate this, allowing FCoT to evaluate the Control response as an external artifact rather than its own prior commitment.
+3. **Project context contamination.** Running `claude -p` from the FCoT project directory caused the model to self-apply FCoT formatting even without the skill being invoked, due to project files (examples, APPROACH.md) being loaded as context.
 
-This is a second form of context contamination (the first being system prompt bias discovered in the initial sampling round). Both point to the same conclusion: **FCoT's effectiveness depends on context isolation between the judgment and its verification.**
-
-N=1 for this comparison. Whether the effect is consistent across subjects and models is untested.
+The current evaluation protocol addresses all three: separate CLI processes from `/tmp`, `CLAUDE.md` files disabled, `--disable-slash-commands` for Control generation. See [docs/examples/](docs/examples/) for the full execution protocol.
 
 ## Open questions
 

@@ -4,7 +4,6 @@ Side-by-side comparisons showing how FCoT changes AI responses. Each example sho
 
 ## Technical
 
-- [Monorepo Migration](monorepo.md) — "This project should migrate to a monorepo."
 - [JWT vs Session Auth](jwt-vs-session.md) — "Session-based auth is more secure than JWT."
 - [TypeScript `any`](typescript-any.md) — "You should never use `any` in TypeScript."
 - [Monolith vs Microservices](monolith-vs-microservices.md) — "You should start with a monolith rather than microservices."
@@ -30,27 +29,61 @@ FCoT doesn't always change the conclusion. When a judgment is sound, FCoT confir
 
 | Example | FCoT Result | Expected | Eval | Rationale |
 | ------- | ----------- | -------- | ---- | --------- |
-| [grammar-vs-conversation](grammar-vs-conversation.md) | Revised | Should revise | ⭕️ | Correctly detected unscoped claim and missing feedback condition |
-| [jwt-vs-session](jwt-vs-session.md) | Revised | Should revise | ⭕️ | Correctly dismantled false equivalence (CSRF, misimplementation asymmetry) |
-| [monorepo](monorepo.md) | Revised | Should revise | 🔺 | Useful reframing but modest — original was directionally correct |
-| [monolith-vs-microservices](monolith-vs-microservices.md) | Revised | Should revise | ⭕️ | 3/5 counter-arguments survived; identified extraction fiction, multi-team underweight, circular assumption |
-| [password-hashing](password-hashing.md) | Narrow revision | Should confirm | ⭕️ | Correctly confirmed; edge case (CHAP/NTLM) adds precision |
-| [remote-work](remote-work.md) | Changed | Should change | ⭕️ | All 5 counter-arguments survived; correctly exposed weak evidence base |
-| [typescript-any](typescript-any.md) | Confirmed | Should confirm | ⭕️ | All 5 counter-arguments dismissed; no manufactured disagreement |
-| [ai-replace-engineers](ai-replace-engineers.md) | Revised | Should revise | ⭕️ | 4/5 counter-arguments survived; caught analogy weakness, timeline evasion, and tonal bias |
-| [sql-injection](sql-injection.md) | Narrow revision | Should confirm | 🔺 | Control already covered predicted counter-arguments; FCoT found meta-level imprecision but didn't fully confirm |
-| [global-state](global-state.md) | Revised | Should revise | ⭕️ | Found structural/rhetorical imbalance and cherry-picked easy examples in Control |
-| [unit-before-integration](unit-before-integration.md) | Revised | Should revise | ⭕️ | 1/5 counter-arguments survived; prototyping exception identified as slippery slope |
-| [code-reviews](code-reviews.md) | Narrow revision | Should confirm | 🔺 | Trap test: FCoT found a revision that *strengthens* the original claim rather than weakening it |
-| [university-education](university-education.md) | Revised | Should revise | ⭕️ | 2/4 counter-arguments survived; sharp curriculum-vs-institution distinction |
+| [grammar-vs-conversation](grammar-vs-conversation.md) | Changed | Should revise | ⭕️ | 4/4 survived; fossilization, learner types, Krashen misapplication, goal-dependency |
+| [jwt-vs-session](jwt-vs-session.md) | Revised | Should revise | ⭕️ | 4/4 survived; structural revocation gap, asymmetric crypto attack surface |
+| [monolith-vs-microservices](monolith-vs-microservices.md) | Confirmed | Should revise | ❌ | 0/6 survived; Control was already well-structured, FCoT found no gaps |
+| [password-hashing](password-hashing.md) | Narrow revision | Should confirm | 🔺 | 2/4 survived; PBKDF2 omission and imprecise SHA dismissal |
+| [remote-work](remote-work.md) | Minor revision | Should change | 🔺 | 1/6 survived; async-first org distinction — Control was already nuanced |
+| [typescript-any](typescript-any.md) | Revised | Should confirm | ❌ | 4/4 survived; migration, metaprogramming, test mocks, third-party types |
+| [ai-replace-engineers](ai-replace-engineers.md) | Significant revision | Should revise | ⭕️ | 4/4 survived; no principled ceiling, demand elasticity uncertain, economic incentives |
+| [sql-injection](sql-injection.md) | Revised | Should confirm | 🔺 | 3/3 survived; dynamic identifiers, inconsistent adoption, second-order injection |
+| [global-state](global-state.md) | Revised | Should revise | ⭕️ | 2/5 survived; init-order bugs and parallel testing cost |
+| [unit-before-integration](unit-before-integration.md) | Confirmed | Should revise | ❌ | 1/5 conditional; Control was already sound, FCoT validated it |
+| [code-reviews](code-reviews.md) | Revised | Should confirm | 🔺 | 2/5 survived; context sensitivity and execution dependency (trap test) |
+| [university-education](university-education.md) | Mostly sound | Should revise | 🔺 | 1/5 partial; online resources narrowed gap for disciplined learners |
 
-**Achievement score: 11.5 / 13 (88.5%)** — scoring ⭕️ = 1, 🔺 = 0.5, ❌ = 0.
+**Achievement score: 6.5 / 12 (54.2%)** — scoring ⭕️ = 1, 🔺 = 0.5, ❌ = 0.
 
 ### Methodology and limitations
 
-- **N=13, qualitative, single model** (Claude Sonnet 4.6). No statistical testing, no reproducibility verification.
+- **N=12, qualitative, single model** (Claude Sonnet 4.6). No statistical testing, no reproducibility verification.
 - **Sampling bias.** Judgment statements were chosen for demonstrative value, not randomly sampled.
-- **Pre-defined vs post-hoc evaluation.** 6 of 13 examples used pre-defined expected behavior (ai-replace-engineers, sql-injection, global-state, unit-before-integration, code-reviews, university-education). The remaining 7 had "expected" results set after observing FCoT's output. The examples primarily demonstrate process behavior, not measured efficacy.
-- **Context contamination.** The initial sampling round inherited anti-sycophancy instructions from the session's configuration, producing atypically pushback-heavy control responses. A second round in a clean session produced more representative results. This itself is a finding: system prompts that encourage critical thinking are not equivalent to structured falsification.
-- **Context separation.** A single-subject comparison (code-reviews) showed that running Control and FCoT in the same context vs. separate CLI processes produced different outcomes (1/4 vs. 4/5 counter-arguments surviving). Same-context FCoT appears constrained by consistency bias with its prior output. N=1; not yet validated at scale. See [APPROACH.md](../../APPROACH.md) for details.
+- **Pre-defined vs post-hoc evaluation.** 6 of 12 examples used pre-defined expected behavior (ai-replace-engineers, sql-injection, global-state, unit-before-integration, code-reviews, university-education). The remaining 6 had "expected" results set after observing FCoT's output. The examples primarily demonstrate process behavior, not measured efficacy.
+- **Context isolation protocol.** Each example was executed via separate CLI processes from `/tmp` to avoid project context contamination. Control was generated with `--disable-slash-commands` (no FCoT skill); FCoT was generated by resuming the same session with `/fcot`. Both `~/.claude/CLAUDE.md` and workspace `CLAUDE.md` were disabled during execution. See [Execution protocol](#execution-protocol) for details.
+- **Context contamination (prior rounds).** Earlier sampling rounds (not included here) revealed two forms of contamination: (1) anti-sycophancy instructions in `CLAUDE.md` produced atypically pushback-heavy control responses, and (2) running Control and FCoT in the same context introduced consistency bias (FCoT maintained coherence with its prior output rather than evaluating it critically). The current protocol addresses both. See [APPROACH.md](../../APPROACH.md) for details.
 - **No cross-model comparison.** All samples used the same model. Whether FCoT's effects hold across different model families is untested.
+
+### Execution protocol
+
+Each example was generated using the following two-step CLI process:
+
+```bash
+# Prerequisites: disable all CLAUDE.md files
+mv ~/.claude/CLAUDE.md ~/.claude/CLAUDE.md.disabled
+mv /path/to/workspace/.claude/CLAUDE.md /path/to/workspace/.claude/CLAUDE.md.disabled
+
+# Step 1: Control (from /tmp to avoid project context, skills disabled)
+cd /tmp && claude -p '"<statement>"' \
+  --model claude-sonnet-4-6 \
+  --disable-slash-commands \
+  --output-format json > <slug>.control.json
+
+SESSION_ID=$(python3 -c "import json; print(json.load(open('<slug>.control.json'))['session_id'])")
+
+# Step 2: FCoT (resume same session, skills enabled)
+cd /tmp && claude -p "/fcot" \
+  --model claude-sonnet-4-6 \
+  --resume "$SESSION_ID" \
+  --output-format text > <slug>.fcot.md
+
+# Restore CLAUDE.md files after all executions
+mv ~/.claude/CLAUDE.md.disabled ~/.claude/CLAUDE.md
+mv /path/to/workspace/.claude/CLAUDE.md.disabled /path/to/workspace/.claude/CLAUDE.md
+```
+
+This protocol ensures:
+- **No project context contamination** — `/tmp` working directory prevents reading project files
+- **No CLAUDE.md bias** — anti-sycophancy and other behavioral instructions are disabled
+- **No cross-statement contamination** — each statement runs in its own CLI process
+- **Context continuity within a statement** — FCoT resumes the same session, so it sees its own Control response
+- **Skill isolation** — Control step has no access to FCoT skill; FCoT step has access
