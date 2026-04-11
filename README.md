@@ -17,6 +17,13 @@ Run `/fcot`. It forces the model to:
 3. Verify those conditions
 4. Revise the judgment if any counter-argument survives
 
+## When NOT to use
+
+- **Simple factual questions** — "What version of Node is this?" doesn't need falsification
+- **Low-risk, easily reversible decisions** — variable naming, minor formatting choices
+- **Speed-critical chat** — if you need a quick answer and the cost of being wrong is low
+- **Claims requiring external research** — FCoT works from available context; it doesn't replace investigation you haven't done
+
 ## What changes
 
 Without FCoT, the AI agrees with you:
@@ -42,6 +49,14 @@ Then run `/fcot`:
 **Revision needed.** The claim is over-broad — conversation-first works for communicative fluency goals with corrective feedback, but not as universal advice.
 
 Across [12 examples](docs/examples/): **10 / 12 (83.3%)** effectiveness — FCoT meaningfully improved or verified the judgment (⭕️=1, 🔺=0.5, ❌=0). Revised or changed in 9/12 cases, confirmed with evidence in 3/12. See [APPROACH.md](APPROACH.md) for methodology, theory, and limitations.
+
+## What to expect
+
+- FCoT is a **skill prompt**, not code — it adds no dependencies and runs no background processes
+- It activates **only when you call it** (`/fcot`) — it does not modify normal Claude Code behavior
+- Typical output: 1 table + 1 conclusion paragraph
+- **First time?** Try `/fcot quick` — same verification process, shorter output
+- Designed for **high-stakes judgment verification**, not everyday chat
 
 ## Install
 
@@ -73,6 +88,12 @@ Works in any language:
 
 ```
 fcotで検証して
+```
+
+For a quick check (shorter output, same process):
+
+```
+/fcot quick
 ```
 
 ## How it works
