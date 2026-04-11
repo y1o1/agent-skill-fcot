@@ -55,12 +55,6 @@ cd agent-skill-fcot
 
 Restart Claude Code after installing.
 
-### Plugin (future)
-
-```
-/plugin install fcot@<marketplace>
-```
-
 ## Usage
 
 After the AI makes a judgment or agrees with you:

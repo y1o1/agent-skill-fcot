@@ -55,12 +55,6 @@ cd agent-skill-fcot
 
 インストール後、Claude Codeを再起動すること。
 
-### プラグイン（将来対応予定）
-
-```
-/plugin install fcot@<marketplace>
-```
-
 ## 使い方
 
 AIが判断を下したり、ユーザーに同意した後に:
