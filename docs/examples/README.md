@@ -25,24 +25,42 @@ Side-by-side comparisons showing how FCoT changes AI responses. Each example sho
 
 FCoT doesn't always change the conclusion. When a judgment is sound, FCoT confirms it — while still surfacing edge cases worth acknowledging.
 
+## Evaluation Rubric
+
+**Effectiveness** measures whether FCoT meaningfully improved or verified the judgment compared to the Control response.
+
+| Rating | Score | Criteria |
+| ------ | ----- | -------- |
+| ⭕️ | 1.0 | FCoT surfaced substantive counter-arguments that Control missed or underweighted, AND the conclusion (confirm/revise/change) is well-supported by those arguments |
+| 🔺 | 0.5 | FCoT produced additional counter-arguments, but Control already covered most of the important ground — limited additional value |
+| ❌ | 0.0 | FCoT failed to surface useful counter-arguments beyond Control, OR produced excessive/irrelevant output, OR over-corrected a sound judgment |
+
+**What ⭕️ does NOT require:**
+
+- The conclusion direction matching the pre-defined prediction (that's expectation match, a separate metric)
+- A specific number of counter-arguments surviving
+- The judgment being revised (confirmation with evidence is also ⭕️)
+
 ## Evaluation Summary
 
-| Example | FCoT Result | Effectiveness | Rationale |
-| ------- | ----------- | ------------- | --------- |
-| [grammar-vs-conversation](grammar-vs-conversation.md) | Changed (4/4) | ⭕️ | Overturned sycophantic Control; found fossilization, learner types, Krashen misapplication |
-| [jwt-vs-session](jwt-vs-session.md) | Revised (4/4) | ⭕️ | Corrected false symmetry framing; identified structural revocation gap and asymmetric attack surface |
-| [monolith-vs-microservices](monolith-vs-microservices.md) | Confirmed (0/6) | ⭕️ | Verified sound judgment through 6 counter-arguments; confirmation with evidence, not rubber-stamp |
-| [password-hashing](password-hashing.md) | Narrow revision (2/4) | ⭕️ | Core principle confirmed; found PBKDF2 omission and imprecise SHA dismissal |
-| [remote-work](remote-work.md) | Minor revision (1/6) | 🔺 | Found async-first org distinction, but Control was already nuanced; limited additional value |
-| [typescript-any](typescript-any.md) | Revised (4/4) | ⭕️ | Found 4 legitimate `any` use cases (migration, metaprogramming, tests, third-party) |
-| [ai-replace-engineers](ai-replace-engineers.md) | Significant revision (4/4) | ⭕️ | Exposed no principled ceiling, demand elasticity uncertainty, economic incentives toward reduction |
-| [sql-injection](sql-injection.md) | Revised (3/3) | ⭕️ | Found dynamic identifiers, inconsistent adoption, second-order injection — Control said "Correct" |
-| [global-state](global-state.md) | Revised (2/5) | ⭕️ | Found init-order bugs and parallel testing cost even in already-critical Control response |
-| [unit-before-integration](unit-before-integration.md) | Confirmed (1/5 cond.) | ⭕️ | Verified sound judgment through 5 counter-arguments including TDD and test pyramid |
-| [code-reviews](code-reviews.md) | Revised (2/5) | ⭕️ | Found context sensitivity and execution dependency in sycophantic "Agreed" Control |
-| [university-education](university-education.md) | Mostly sound (1/5) | 🔺 | Found online resource gap narrowing, but Control was already well-balanced; limited uplift |
+| Example | Eval Type | FCoT Result | Effectiveness | Rationale |
+| ------- | --------- | ----------- | ------------- | --------- |
+| [grammar-vs-conversation](grammar-vs-conversation.md) | post-hoc | Changed (4/4) | ⭕️ | Overturned sycophantic Control; found fossilization, learner types, Krashen misapplication |
+| [jwt-vs-session](jwt-vs-session.md) | post-hoc | Revised (4/4) | ⭕️ | Corrected false symmetry framing; identified structural revocation gap and asymmetric attack surface |
+| [monolith-vs-microservices](monolith-vs-microservices.md) | post-hoc | Confirmed (0/6) | ⭕️ | Verified sound judgment through 6 counter-arguments; confirmation with evidence, not rubber-stamp |
+| [password-hashing](password-hashing.md) | post-hoc | Narrow revision (2/4) | ⭕️ | Core principle confirmed; found PBKDF2 omission and imprecise SHA dismissal |
+| [remote-work](remote-work.md) | post-hoc | Minor revision (1/6) | 🔺 | Found async-first org distinction, but Control was already nuanced; limited additional value |
+| [typescript-any](typescript-any.md) | post-hoc | Revised (4/4) | ⭕️ | Found 4 legitimate `any` use cases (migration, metaprogramming, tests, third-party) |
+| [ai-replace-engineers](ai-replace-engineers.md) | pre-defined | Significant revision (4/4) | ⭕️ | Exposed no principled ceiling, demand elasticity uncertainty, economic incentives toward reduction |
+| [sql-injection](sql-injection.md) | pre-defined | Revised (3/3) | ⭕️ | Found dynamic identifiers, inconsistent adoption, second-order injection — Control said "Correct" |
+| [global-state](global-state.md) | pre-defined | Revised (2/5) | ⭕️ | Found init-order bugs and parallel testing cost even in already-critical Control response |
+| [unit-before-integration](unit-before-integration.md) | pre-defined | Confirmed (1/5 cond.) | ⭕️ | Verified sound judgment through 5 counter-arguments including TDD and test pyramid |
+| [code-reviews](code-reviews.md) | pre-defined | Revised (2/5) | ⭕️ | Found context sensitivity and execution dependency in sycophantic "Agreed" Control |
+| [university-education](university-education.md) | pre-defined | Mostly sound (1/5) | 🔺 | Found online resource gap narrowing, but Control was already well-balanced; limited uplift |
 
 **Effectiveness: 10 / 12 (83.3%)** — did FCoT meaningfully improve or verify the judgment? ⭕️ = 1, 🔺 = 0.5, ❌ = 0.
+
+**Pre-defined subset: 5.5 / 6 (91.7%)** | **Post-hoc subset: 5.5 / 6 (91.7%)**
 
 **Expectation match: 6.5 / 12 (54.2%)** — did FCoT's conclusion direction match pre-defined or post-hoc predictions? (See individual example files for per-example expectation evaluation.)
 
